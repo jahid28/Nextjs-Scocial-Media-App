@@ -8,9 +8,13 @@ const UserSchema = new Schema({
   email: {
     type: String,
     required: true
+  },
+  password: {
+    type: String,
+    required: true
   }
 });
 
 // const User = models.User || model("User", UserSchema);
 
-export default models.User || model("User", UserSchema);;
+export default models.Normal_user || model("Normal_user", UserSchema);;

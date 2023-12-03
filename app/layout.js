@@ -2,6 +2,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Session } from 'next-auth';
 import AuthProvider from "@/components/AuthProvider";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,6 +16,7 @@ export default function RootLayout({ children,session }) {
   return (
     <html lang="en">
        <body>
+        <ToastContainer/>
         <AuthProvider session={session}>
           {/* <Navbar authenticated={false} name='null' image='null'/> */}
           {children}

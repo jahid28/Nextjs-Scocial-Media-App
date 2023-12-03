@@ -12,16 +12,18 @@ const page = () => {
 
   const ref = useRef(null)
 
-  const [name,setName]=useState('')
   const [email,setEmail]=useState('')
+  const [pass,setPass]=useState('')
 
   async function login(){
     ref.current.continuousStart()
 
-    const response = await fetch("/api/users", {
-      method: "POST",
-      body:JSON.stringify({name,email})
-    });
+    const response = await fetch("/api/normal_user", {
+      method: "GET",
+      body:JSON.stringify({email,pass})
+    }).then(res=>{
+      console.log('res is ',res)
+    })
 
     if (response.ok) {
       ref.current.complete()
@@ -30,8 +32,8 @@ const page = () => {
 
   }
 
-  const  data  = useSession();
-  const router = useRouter();
+  // const  data  = useSession();
+  // const router = useRouter();
 
   return (
     <>
@@ -48,19 +50,7 @@ const page = () => {
            
            <form onSubmit={handleSubmit(login)}>
 
-           <div className="relative mb-4">
-              <label for="name" className="leading-7 text-sm text-gray-600">
-                Name
-              </label>
-              <input
-              required
-               onChange={(event) => setName(event.target.value )} 
-                type="text"
-                id="name"
-                name="name"
-                className="w-full bg-white rounded border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              />
-            </div>
+           
             <div className="relative mb-4">
               <label for="email" className="leading-7 text-sm text-gray-600">
                 Email
@@ -71,6 +61,20 @@ const page = () => {
                type="email"
                 id="email"
                 name="email"
+                className="w-full bg-white rounded border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              />
+            </div>
+
+            <div className="relative mb-4">
+              <label for="password" className="leading-7 text-sm text-gray-600">
+                Password
+              </label>
+              <input
+              required
+               onChange={(event) => setPass(event.target.value )} 
+                type="password"
+                id="password"
+                name="password"
                 className="w-full bg-white rounded border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div>

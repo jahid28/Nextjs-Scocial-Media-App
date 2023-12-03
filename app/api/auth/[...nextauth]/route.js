@@ -5,7 +5,7 @@ import GoogleProvider from 'next-auth/providers/google';
 // import { usePathname,useRouter } from 'next/navigation'
 
 
-import User from "@/models/user";
+import G_user from "@/models/g_user";
 import { connectToDB } from "@/utils/database";
 // import { NextResponse } from "next/server";
 // console.log('hiiiiiiiii',process.env.GOOGLE_SECRET)
@@ -34,10 +34,10 @@ const handler = NextAuth({
     async signIn({ account, profile, user, credentials }) {
       try {
         await connectToDB();
-        const checkEmail = await User.find({ email: user.email })
+        const checkEmail = await G_user.find({ email: user.email })
 
         if (checkEmail.length == 0) {
-          await User.insertMany({ name: user.name, email: user.email })
+          await G_user.insertMany({ name: user.name, email: user.email })
 
         }  
 
