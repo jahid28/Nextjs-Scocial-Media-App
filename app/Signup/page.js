@@ -6,10 +6,15 @@ import LoadingBar from "react-top-loading-bar";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 // import bcryptjs from "bcryptjs"
+import Cookies from "js-cookie";
+
 
 import React, { useState, useRef } from "react";
 
 const page = () => {
+  const router=useRouter()
+  const { data: session } = useSession();
+
   const { register, handleSubmit } = useForm();
 
   const ref = useRef(null);
@@ -27,15 +32,29 @@ const page = () => {
         body: JSON.stringify({ name, email, pass }),
       });
       const data = await response.json();
+      console.log('data is ',data)
       if(data.msg=="exist"){
-        toast.error("Fill the Captcha")
+        toast.error("Email is already registered",{
+          position: toast.POSITION.TOP_CENTER,
+          theme: "colored"
+        })
       }
       else if(data.msg=="saved"){
-        toast.success("Registered")
+        toast.success("Registered successfully",{
+          position: toast.POSITION.TOP_CENTER,
+          theme: "colored"
+        })
+        Cookies.set("email", email, { expires: 7 })
+                router.replace("/Home");
+
       }
       // .then(res => res.json())
       ref.current.complete();
     } else {
+      toast.error("Passwords donot match",{
+        position: toast.POSITION.TOP_CENTER,
+        theme: "colored"
+      })
     }
   }
 
@@ -126,8 +145,10 @@ const page = () => {
               <br />
 
               <button
-                onClick={() => {
-                  signIn("google");
+                onClick={async() => {
+                  const response =signIn("google");
+                  const data = await response.json();
+                  alert('g is ',data)
                 }}
                 className="text-white justify-center flex bg-emerald-500 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-700 rounded text-lg"
               >

@@ -7,7 +7,7 @@ import GoogleProvider from 'next-auth/providers/google';
 
 import G_user from "@/models/g_user";
 import { connectToDB } from "@/utils/database";
-// import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 // console.log('hiiiiiiiii',process.env.GOOGLE_SECRET)
 const handler = NextAuth({
   providers: [
@@ -36,10 +36,15 @@ const handler = NextAuth({
         await connectToDB();
         const checkEmail = await G_user.find({ email: user.email })
 
-        if (checkEmail.length == 0) {
-          await G_user.insertMany({ name: user.name, email: user.email })
+        if (checkEmail) {
+          return NextResponse.json({ msg: "alreadyexist" });
 
         }  
+        else{
+          await G_user.insertMany({ name: user.name, email: user.email })
+          return NextResponse.json({ msg: "saved" });
+
+        }
 
         return true
       }

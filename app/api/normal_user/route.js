@@ -7,13 +7,14 @@ import bcryptjs from "bcryptjs";
 
 export async function POST(req) {
   const { name, email, pass } = await req.json();
+  await connectToDB();
   const check = await Normal_user.findOne({ email });
   if(check){
     return NextResponse.json({ msg: "exist" });
   }
   else{
     const newPass =await bcryptjs.hash(pass, 10);
-    await connectToDB();
+    
     await Normal_user.insertMany({ name, email, password: newPass });
     // res.json({ message: 'saved' })
     // res.json("saved")
@@ -24,18 +25,28 @@ export async function POST(req) {
   
 }
 
-export async function GET(req,res) {
+export async function PUT(req,res) {
   const { email, pass } = await req.json();
+  await connectToDB();
   const check = await Normal_user.findOne({ email });
+  // console.log('detail s',pass,check.password)
+  // const check = false;
 
   if (check) {
-    await bcryptjs.compare(pass, check.password);
-    passCheck ? res.json("loginPass") : res.json("loginFail");
+    let passCheck=await bcryptjs.compare(pass, check.password);
+    
+    // console.log('pass is ',passCheck)
+
+    if(passCheck){return NextResponse.json({ msg: "correct" });}
+    else{return NextResponse.json({ msg: "incorrect" });}
+    // passCheck ? res.json("loginPass") : res.json("loginFail");
   } else {
-    res.json("nouser");
+    return NextResponse.json({ msg: "incorrect" });
+
+    // res.json("nouser");
   }
 
-  return NextResponse.json({ messgae: "done" }, { status: 201 });
+  // return NextResponse.json({ messgae: "done" }, { status: 201 });
   // const {name}=await req.json()
   // return NextResponse.json({getVal:res},{status:201})
 }
