@@ -2,13 +2,18 @@
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FaGoogle } from "react-icons/fa";
+import { GiStoneSphere } from "react-icons/gi";
+
 import LoadingBar from "react-top-loading-bar";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
+import Cookies from "js-cookie";
+import { Jwt } from "jsonwebtoken";
 
 import React, { useState, useRef } from "react";
 
 const page = () => {
+  
   const router=useRouter()
   const { data: session } = useSession();
 
@@ -16,6 +21,16 @@ if (session) {
     router.replace("/Home");
     // return null; // Prevent rendering while redirecting
   }
+
+  if(Cookies.get('email')!=undefined){
+    console.log('yes')
+    router.replace("/Home");
+
+  }
+  else{
+    console.log('no')
+  }
+
   const { register, handleSubmit } = useForm();
 
   const ref = useRef(null);
@@ -44,6 +59,8 @@ if (session) {
         position: toast.POSITION.TOP_CENTER,
         theme: "colored"
       })
+      Cookies.set("email", email, { expires: 7 })
+
       router.replace("/Home")
 
     }
@@ -54,20 +71,24 @@ if (session) {
     //   ref.current.complete()
     // }
   }
-
   // const  data  = useSession();
   // const router = useRouter();
 
   return (
     <>
+<style>
+  import url('https://fonts.googleapis.com/css2?family=Whisper&display=swap');
+</style>
       <LoadingBar color="#5CDB95" ref={ref} />
+
+      <h1 style={{"font-family":" 'Whisper', cursive"}} className="font-family: 'Whisper', cursive;">SocialSphere</h1>
 
       <div className="grid place-items-center w-[100vw] h-[100vh]">
         <section className="text-gray-600 body-font relative">
           <div className="container px-5 py-24 mx-auto flex">
             <div className=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-[30vw] mt-10 md:mt-0 relative z-10 shadow-md">
               <h2 className="text-sky-900 text-3xl mb-5 font-medium title-font">
-                Login
+                Login to continue
               </h2>
 
               <form onSubmit={handleSubmit(login)}>
