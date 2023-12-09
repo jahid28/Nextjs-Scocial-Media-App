@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import { Jwt } from "jsonwebtoken";
 
 import React, { useState, useRef } from "react";
+import Head from 'next/head';
 
 const page = () => {
   
@@ -76,9 +77,14 @@ if (session) {
 
   return (
     <>
-<style>
-  import url('https://fonts.googleapis.com/css2?family=Whisper&display=swap');
-</style>
+<Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Whisper&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       <LoadingBar color="#5CDB95" ref={ref} />
 
       <h1 style={{"font-family":" 'Whisper', cursive"}} className="font-family: 'Whisper', cursive;">SocialSphere</h1>
