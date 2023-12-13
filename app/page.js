@@ -3,7 +3,6 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FaGoogle } from "react-icons/fa";
 import { GiStoneSphere } from "react-icons/gi";
-
 import LoadingBar from "react-top-loading-bar";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';

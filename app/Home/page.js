@@ -1,6 +1,5 @@
 "use client";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
-
 import React, { useEffect, useState } from "react";
 import { GiStoneSphere } from "react-icons/gi";
 import { useRouter } from "next/navigation";
