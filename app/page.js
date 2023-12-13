@@ -11,7 +11,6 @@ import Cookies from "js-cookie";
 import { Jwt } from "jsonwebtoken";
 
 import React, { useState, useRef } from "react";
-import Head from 'next/head';
 
 const page = () => {
   
@@ -19,6 +18,7 @@ const page = () => {
   const { data: session } = useSession();
 
 if (session) {
+  console.log('google is ',session)
     router.replace("/Home");
     // return null; // Prevent rendering while redirecting
   }
@@ -77,19 +77,18 @@ if (session) {
 
   return (
     <>
-<Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Whisper&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
+    <div className="flex mt-8 justify-center">
+    <p className="">
+<GiStoneSphere className="text-5xl text-red-600"/>
+    </p>
+      <h1 style={{"font-family":" 'Whisper', cursive"}} className="text-4xl font-bold">SocialSphere</h1>
+    </div>
+      
+      
       <LoadingBar color="#5CDB95" ref={ref} />
 
-      <h1 style={{"font-family":" 'Whisper', cursive"}} className="font-family: 'Whisper', cursive;">SocialSphere</h1>
 
-      <div className="grid place-items-center w-[100vw] h-[100vh]">
+      <div className="grid place-items-center w-[100vw] h-[80vh]">
         <section className="text-gray-600 body-font relative">
           <div className="container px-5 py-24 mx-auto flex">
             <div className=" bg-white rounded-lg p-8 flex flex-col md:ml-auto w-[30vw] mt-10 md:mt-0 relative z-10 shadow-md">

@@ -15,14 +15,7 @@ export const metadata = {
 export default function RootLayout({ children, session }) {
   return (
     <html lang="en">
-<Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Whisper&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
+
       <body>
         <ToastContainer />
         <AuthProvider session={session}>

@@ -15,7 +15,7 @@ export async function POST(req) {
   else{
     const newPass =await bcryptjs.hash(pass, 10);
     
-    await Normal_user.insertMany({ name, email, password: newPass });
+    await Normal_user.insertMany({ name, email, password: newPass,pic:"https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" });
     // res.json({ message: 'saved' })
     // res.json("saved")
    return NextResponse.json({ msg: "saved" }, { status: 201 });

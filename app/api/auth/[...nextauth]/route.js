@@ -35,13 +35,12 @@ const handler = NextAuth({
       try {
         await connectToDB();
         const checkEmail = await G_user.find({ email: user.email })
-
-        if (checkEmail) {
+        if (checkEmail.length!=0) {
           return NextResponse.json({ msg: "alreadyexist" });
-
+          
         }  
         else{
-          await G_user.insertMany({ name: user.name, email: user.email })
+          await G_user.insertMany({ name: user.name, email: user.email,pic:user.image })
           return NextResponse.json({ msg: "saved" });
 
         }
